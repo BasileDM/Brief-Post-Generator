@@ -19,8 +19,8 @@ import createPrompt from './utils/createPrompt' ;
 
         const test = await getOpenAiResponse(prompt);
 
-
         console.log(test);
+        return test;
     }
 
     const selectedTemplate = () => {
@@ -29,7 +29,7 @@ import createPrompt from './utils/createPrompt' ;
       const choice = templateChoice.value;
       console.log(choice);
       
-      // return choice;
+       return choice;
     }
 
     const template = ref('template1')
