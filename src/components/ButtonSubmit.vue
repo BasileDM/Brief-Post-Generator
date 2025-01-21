@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import createPrompt from './../utils/createPrompt' ;
 
     const handleFrom = () => {
         const templateChoice = document.getElementById('template_choice') as HTMLSelectElement;
@@ -11,10 +11,10 @@
             return acc;
         }, {} as Record<string, string>);
 
-        // createPrompt(inputValues);
+        const prompt = createPrompt(inputValues);
 
 
-        console.log(inputValues, templateChoice.value);
+        console.log(inputValues, templateChoice.value, prompt);
     }
 
 </script>
