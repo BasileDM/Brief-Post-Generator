@@ -1,27 +1,11 @@
 <script setup lang="ts">
-import createPrompt from './../utils/createPrompt' ;
-
-    const handleFrom = () => {
-        const templateChoice = document.getElementById('template_choice') as HTMLSelectElement;
-        const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
-        const inputValues = Array.from(arrayInput).reduce((acc, input) => {
-            if (input.name) {
-                acc[input.name] = input.value;
-            }
-            return acc;
-        }, {} as Record<string, string>);
-
-        const prompt = createPrompt(inputValues);
-
-
-        console.log(inputValues, templateChoice.value, prompt);
-    }
-
+    import { defineEmits } from 'vue';
+    const emit = defineEmits(['submit']);
 </script>
 
 <template>
 
-    <button id="submit" @click="handleFrom()">Envoyer</button>
+    <button id="submit" @click="emit('submit')">Envoyer</button>
 
 </template>
 

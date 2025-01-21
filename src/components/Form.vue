@@ -2,6 +2,9 @@
 import InputText from './InputText.vue';
 import SelectTemplate from './SelectTemplate.vue';
 import ButtonSubmit from './ButtonSubmit.vue';
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(['formSubmit']);
 </script>
 
 <template>
@@ -11,7 +14,7 @@ import ButtonSubmit from './ButtonSubmit.vue';
     <InputText title_input="Occasion" />
     <InputText title_input="Tonalité" />
 
-    <ButtonSubmit />
+    <ButtonSubmit @submit="emit('formSubmit')" />
 
 </template>
 
