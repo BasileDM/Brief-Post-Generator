@@ -29,6 +29,9 @@ import Form from './components/Form.vue';
 .block_right,
 .block_left {
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: 25px;
 }
 
 .block_right {

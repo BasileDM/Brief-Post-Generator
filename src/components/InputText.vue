@@ -5,12 +5,15 @@ defineProps<{ title_input: string }>()
 </script>
 
 <template>
-    <label for="">{{ title_input }}</label>
-    <input type="text" name="{{ title_input }}" id="{{ title_input }}">
+    <label for="" class="title">{{ title_input }}</label>
+    <input type="text" name="{{ title_input }}" id="{{ title_input }}" class="field">
 </template>
 
 <style scoped>
-.read-the-docs {
-    color: #888;
-}
+    .title {
+        text-align: left;
+    }
+    .field {
+        margin: 5px 0px 15px 0px;
+    }
 </style>

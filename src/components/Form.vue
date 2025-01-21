@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import InputText from './InputText.vue';
 import SelectTemplate from './SelectTemplate.vue';
+import ButtonSubmit from './ButtonSubmit.vue';
 </script>
 
 <template>
@@ -10,6 +11,12 @@ import SelectTemplate from './SelectTemplate.vue';
     <InputText title_input="Occasion" />
     <InputText title_input="Tonalité" />
 
+    <ButtonSubmit />
+
 </template>
 
-<style></style>
+<style scoped>
+    button {
+        align-self: self-end;
+    }
+</style>
