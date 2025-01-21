@@ -7,7 +7,6 @@ import createPrompt from './utils/createPrompt' ;
 
 
     const handleFrom = async () => {
-        const templateChoice = document.getElementById('template_choice') as HTMLSelectElement;
         const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
         const inputValues = Array.from(arrayInput).reduce((acc, input) => {
             if (input.name) {
@@ -23,6 +22,16 @@ import createPrompt from './utils/createPrompt' ;
 
         console.log(test);
     }
+
+    const selectedTemplate = () => {
+      
+      const templateChoice = document.getElementById('template_choice') as HTMLSelectElement;
+      const choice = templateChoice.value;
+      console.log(choice);
+      
+      // return choice;
+    }
+
     const template = ref('template1')
 
 </script>
@@ -33,7 +42,7 @@ import createPrompt from './utils/createPrompt' ;
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
-        <Form @formSubmit="handleFrom" />
+        <Form @formSubmit="handleFrom" @templateSubmit="selectedTemplate" />
       </div>
       <div class="block_right">
         <!-- appel résultat -->
