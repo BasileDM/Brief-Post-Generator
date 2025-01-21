@@ -1,10 +1,27 @@
 <script setup lang="ts">
 
+
+    const handleFrom = () => {
+        const templateChoice = document.getElementById('template_choice') as HTMLSelectElement;
+        const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
+        const inputValues = Array.from(arrayInput).reduce((acc, input) => {
+            if (input.name) {
+                acc[input.name] = input.value;
+            }
+            return acc;
+        }, {} as Record<string, string>);
+
+        // createPrompt(inputValues);
+
+
+        console.log(inputValues, templateChoice.value);
+    }
+
 </script>
 
 <template>
 
-    <button id="submit">Envoyer</button>
+    <button id="submit" @click="handleFrom()">Envoyer</button>
 
 </template>
 

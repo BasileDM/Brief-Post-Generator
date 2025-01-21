@@ -6,7 +6,7 @@ defineProps<{ title_input: string }>()
 
 <template>
     <label for="" class="title">{{ title_input }}</label>
-    <input type="text" name="{{ title_input }}" id="{{ title_input }}" class="field">
+    <input type="text" :name="title_input" class="field">
 </template>
 
 <style scoped>
