@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import ResultCanvas from './components/ResultCanvas.vue'
 import Form from './components/Form.vue';
+
+const template = ref('template1')
 </script>
 
 <template>
@@ -12,7 +16,7 @@ import Form from './components/Form.vue';
       </div>
       <div class="block_right">
         <!-- appel résultat -->
-        <img src="https://picsum.photos/200/300" alt="">
+        <ResultCanvas :templateType="template" />
       </div>
     </div>
   </div>
