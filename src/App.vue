@@ -1,31 +1,41 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <!-- Dev branch -->
   <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <h1>Titre</h1>
+    <div class="main_content">
+      <div class="block_right">
+        <!-- appel formulaire -->
+         <label for="">template</label><br>
+         <input type="text" name="" id=""><br>
+         <label for="">tonalite</label><br>
+         <input type="text" name="" id=""><br>
+         <label for="">occasion</label><br>
+         <input type="text" name="" id=""><br>
+      </div>
+      <div class="block_left">
+        <!-- appel résultat -->
+         <img src="https://picsum.photos/200/300" alt="">
+      </div>
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+  .main_content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+  }
+  .block_right, .block_left {
+    width: 50%;
+  }
+  .block_right {
+    justify-content: flex-end;
+  }
+  .block_left {
+    justify-content: flex-start;
+  }
 </style>
