@@ -1,0 +1,19 @@
+<script setup lang="ts">
+
+defineProps<{ title_input: string }>()
+
+</script>
+
+<template>
+    <label for="" class="title">{{ title_input }}</label>
+    <input type="text" name="{{ title_input }}" id="{{ title_input }}" class="field">
+</template>
+
+<style scoped>
+    .title {
+        text-align: left;
+    }
+    .field {
+        margin: 5px 0px 15px 0px;
+    }
+</style>
