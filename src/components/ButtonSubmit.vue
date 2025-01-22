@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { defineEmits } from 'vue';
-const emit = defineEmits(['submit']);
 </script>
 
 <template>
-    <button id="submit" @click="emit('submit')">Envoyer</button>
+    <button id="submit">Envoyer</button>
 </template>
 
 <style scoped>
