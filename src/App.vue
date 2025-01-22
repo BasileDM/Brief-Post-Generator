@@ -17,10 +17,11 @@ const handleFrom = async () => {
   }, {} as Record<string, string>);
 
   const prompt = createPrompt(inputValues);
-  const test = await getOpenAiResponse(prompt);
+  const openAiResponse = await getOpenAiResponse(prompt);
+  console.log(openAiResponse);
 
-  console.log(test);
-  resultCanvasRef.value?.drawCanvas();
+  const responseObject = JSON.parse(openAiResponse);
+  resultCanvasRef.value?.drawCanvas(responseObject.Titre, responseObject.Slogan);
 }
 
 const handleTemplateChange = () => {
