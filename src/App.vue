@@ -19,7 +19,6 @@ const handleFrom = async () => {
   const test = await getOpenAiResponse(prompt);
 
   console.log(test);
-  return test;
 }
 
 const handleTemplateChange = () => {
