@@ -1,7 +1,5 @@
 <script setup lang="ts">
-
 defineProps<{ title_input: string }>()
-
 </script>
 
 <template>
@@ -10,10 +8,11 @@ defineProps<{ title_input: string }>()
 </template>
 
 <style scoped>
-    .title {
-        text-align: left;
-    }
-    .field {
-        margin: 5px 0px 15px 0px;
-    }
+.title {
+    text-align: left;
+}
+
+.field {
+    margin: 5px 0px 15px 0px;
+}
 </style>
