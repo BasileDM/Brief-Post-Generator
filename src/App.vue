@@ -16,20 +16,16 @@ const handleFrom = async () => {
   }, {} as Record<string, string>);
 
   const prompt = createPrompt(inputValues);
-
   const test = await getOpenAiResponse(prompt);
 
   console.log(test);
   return test;
 }
 
-const selectedTemplate = () => {
-
-  const templateChoice = document.getElementById('template_choice') as HTMLSelectElement;
-  const choice = templateChoice.value;
-  console.log(choice);
-
-  return choice;
+const handleTemplateChange = () => {
+  const templateSelectElement = document.getElementById('template_choice') as HTMLSelectElement;
+  const templateValue = templateSelectElement.value;
+  console.log(templateValue);
 }
 
 const template = ref('template1')
@@ -42,7 +38,7 @@ const template = ref('template1')
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
-        <Form @formSubmit="handleFrom" @templateSubmit="selectedTemplate" />
+        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" />
       </div>
       <div class="block_right">
         <!-- appel résultat -->

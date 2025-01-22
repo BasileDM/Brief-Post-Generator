@@ -4,15 +4,15 @@ import SelectTemplate from './SelectTemplate.vue';
 import ButtonSubmit from './ButtonSubmit.vue';
 import { defineEmits } from 'vue';
 
-const emit = defineEmits(['formSubmit', 'templateSubmit']);
+const emit = defineEmits(['formSubmit', 'templateChange']);
 </script>
 
 <template>
-    <SelectTemplate @template="emit('templateSubmit')" />
+    <SelectTemplate @template="emit('templateChange')" />
     <InputText title_input="Occasion" />
     <InputText title_input="Tonalité" />
 
-    <ButtonSubmit @submit="emit('formSubmit')" />
+    <ButtonSubmit @click="emit('formSubmit')" />
 </template>
 
 <style scoped>
