@@ -5,6 +5,7 @@ import Form from './components/Form.vue';
 import { getOpenAiResponse } from './utils/data';
 import createPrompt from './utils/createPrompt';
 
+const resultCanvasRef = ref();
 
 const handleFrom = async () => {
   const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
@@ -19,6 +20,7 @@ const handleFrom = async () => {
   const test = await getOpenAiResponse(prompt);
 
   console.log(test);
+  resultCanvasRef.value?.drawCanvas();
 }
 
 const handleTemplateChange = () => {
@@ -41,7 +43,7 @@ const template = ref('template1')
       </div>
       <div class="block_right">
         <!-- appel résultat -->
-        <ResultCanvas :templateType="template" />
+        <ResultCanvas ref="resultCanvasRef" :templateType="template" />
       </div>
     </div>
   </div>

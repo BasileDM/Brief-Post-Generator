@@ -20,7 +20,7 @@ const loadImage = (): Promise<HTMLImageElement> => {
   })
 }
 
-const drawCanvas = async () => {
+const drawCanvas = async (title: string) => {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
@@ -29,11 +29,15 @@ const drawCanvas = async () => {
 
   ctx.drawImage(image, 0, 0)
   ctx.font = '50px serif'
-  ctx.fillText('Hello', 10, 50)
+  ctx.fillText(title, 10, 50)
 }
 
+defineExpose({
+  drawCanvas
+})
+
 onMounted(() => {
-  drawCanvas()
+  drawCanvas("Title")
 })
 </script>
 
