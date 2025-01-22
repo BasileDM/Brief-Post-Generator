@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 
-defineProps({
+const { templateType } = defineProps({
   templateType: String
 })
 
@@ -20,7 +20,7 @@ const loadImage = (): Promise<HTMLImageElement> => {
   })
 }
 
-const drawCanvas = async (title: string, slogan: string) => {
+const drawCanvas = async (title: string, slogan: string, templateType: string = 'template_1') => {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
@@ -31,12 +31,16 @@ const drawCanvas = async (title: string, slogan: string) => {
   ctx.drawImage(image, 0, 0)
 
   // Draw the title
-  ctx.font = '50px serif'
+  ctx.font = '40px serif'
   ctx.fillText(title, 10, 50)
 
   // Draw the slogan
-  ctx.font = '30px serif'
+  ctx.font = '20px serif'
   ctx.fillText(slogan, 10, 100)
+
+  // Draw the template name
+  ctx.font = '20px serif'
+  ctx.fillText(templateType, 10, 200)
 }
 
 defineExpose({
@@ -44,11 +48,12 @@ defineExpose({
 })
 
 onMounted(() => {
-  drawCanvas("Title", "Slogan")
+  drawCanvas("Title", "Slogan", templateType)
 })
 </script>
 
 <template>
+  <pre>templateType: {{ templateType }}</pre>
   <canvas id="canvas" width="402" height="730" style="border:1px solid #000000;"></canvas>
 </template>
 

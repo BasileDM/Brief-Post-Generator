@@ -6,6 +6,7 @@ import { getOpenAiResponse } from './utils/data';
 import createPrompt from './utils/createPrompt';
 
 const resultCanvasRef = ref();
+const template = ref('template_1');
 
 const handleFrom = async () => {
   const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
@@ -21,16 +22,14 @@ const handleFrom = async () => {
   console.log(openAiResponse);
 
   const responseObject = JSON.parse(openAiResponse);
-  resultCanvasRef.value?.drawCanvas(responseObject.Titre, responseObject.Slogan);
+  resultCanvasRef.value?.drawCanvas(responseObject.Titre, responseObject.Slogan, template);
 }
 
 const handleTemplateChange = () => {
   const templateSelectElement = document.getElementById('template_choice') as HTMLSelectElement;
   const templateValue = templateSelectElement.value;
-  console.log(templateValue);
+  resultCanvasRef.value?.drawCanvas("Title", "Slogan", templateValue);
 }
-
-const template = ref('template1')
 
 </script>
 

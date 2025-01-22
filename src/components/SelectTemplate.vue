@@ -9,7 +9,7 @@ const emit = defineEmits(['template']);
     <select name="template_choice" id="template_choice" class="field" @change="emit('template')">
         <option value="">Choisissez votre template</option>
         <option value="template_1">Template 1</option>
-        <option value="template_2">Tempalte 2</option>
+        <option value="template_2">Template 2</option>
     </select>
 
 </template>
