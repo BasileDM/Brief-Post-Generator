@@ -15,10 +15,11 @@ const emit = defineEmits(['template']);
 </template>
 
 <style scoped>
-    .title {
-        text-align: left;
-    }
-    .field {
-        margin: 5px 0px 15px 0px;
-    }
+.title {
+    text-align: left;
+}
+
+.field {
+    margin: 5px 0px 15px 0px;
+}
 </style>

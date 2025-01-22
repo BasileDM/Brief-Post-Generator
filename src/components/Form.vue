@@ -8,18 +8,15 @@ const emit = defineEmits(['formSubmit', 'templateSubmit']);
 </script>
 
 <template>
-
-    <SelectTemplate @template="emit('templateSubmit')"/>
-
+    <SelectTemplate @template="emit('templateSubmit')" />
     <InputText title_input="Occasion" />
     <InputText title_input="Tonalité" />
 
     <ButtonSubmit @submit="emit('formSubmit')" />
-
 </template>
 
 <style scoped>
-    button {
-        align-self: self-end;
-    }
+button {
+    align-self: self-end;
+}
 </style>
