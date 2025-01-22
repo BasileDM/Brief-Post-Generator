@@ -3,36 +3,36 @@ import { ref } from 'vue'
 import ResultCanvas from './components/ResultCanvas.vue'
 import Form from './components/Form.vue';
 import { getOpenAiResponse } from './utils/data';
-import createPrompt from './utils/createPrompt' ;
+import createPrompt from './utils/createPrompt';
 
 
-    const handleFrom = async () => {
-        const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
-        const inputValues = Array.from(arrayInput).reduce((acc, input) => {
-            if (input.name) {
-                acc[input.name] = input.value;
-            }
-            return acc;
-        }, {} as Record<string, string>);
-
-        const prompt = createPrompt(inputValues);
-
-        const test = await getOpenAiResponse(prompt);
-
-        console.log(test);
-        return test;
+const handleFrom = async () => {
+  const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
+  const inputValues = Array.from(arrayInput).reduce((acc, input) => {
+    if (input.name) {
+      acc[input.name] = input.value;
     }
+    return acc;
+  }, {} as Record<string, string>);
 
-    const selectedTemplate = () => {
-      
-      const templateChoice = document.getElementById('template_choice') as HTMLSelectElement;
-      const choice = templateChoice.value;
-      console.log(choice);
-      
-       return choice;
-    }
+  const prompt = createPrompt(inputValues);
 
-    const template = ref('template1')
+  const test = await getOpenAiResponse(prompt);
+
+  console.log(test);
+  return test;
+}
+
+const selectedTemplate = () => {
+
+  const templateChoice = document.getElementById('template_choice') as HTMLSelectElement;
+  const choice = templateChoice.value;
+  console.log(choice);
+
+  return choice;
+}
+
+const template = ref('template1')
 
 </script>
 
