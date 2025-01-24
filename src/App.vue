@@ -5,8 +5,9 @@ import Form from './components/Form.vue';
 import { getOpenAiResponse } from './utils/data';
 import createPrompt from './utils/createPrompt';
 
-const resultCanvasRef = ref();
 const template = ref('template_1');
+const title = ref('Title');
+const slogan = ref('Slogan');
 
 const handleFrom = async () => {
   const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
@@ -20,22 +21,21 @@ const handleFrom = async () => {
   const prompt = createPrompt(inputValues);
   const openAiResponse = await getOpenAiResponse(prompt);
   console.log(openAiResponse);
-
   const responseObject = JSON.parse(openAiResponse);
-  resultCanvasRef.value?.drawCanvas(responseObject.Titre, responseObject.Slogan, template);
+
+  title.value = responseObject.Titre;
+  slogan.value = responseObject.Slogan;
 }
 
 const handleTemplateChange = () => {
   const templateSelectElement = document.getElementById('template_choice') as HTMLSelectElement;
-  const templateValue = templateSelectElement.value;
-  resultCanvasRef.value?.drawCanvas("Title", "Slogan", templateValue);
+  template.value = templateSelectElement.value;
 }
-
 </script>
 
 <template>
   <div>
-    <h1>Titre</h1>
+    <h1>Social Post Generator</h1>
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
@@ -43,7 +43,7 @@ const handleTemplateChange = () => {
       </div>
       <div class="block_right">
         <!-- appel résultat -->
-        <ResultCanvas ref="resultCanvasRef" :templateType="template" />
+        <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
       </div>
     </div>
   </div>

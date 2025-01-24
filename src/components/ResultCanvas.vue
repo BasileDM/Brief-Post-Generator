@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 
-const { templateType } = defineProps({
-  templateType: String
+const { templateType, title, slogan } = defineProps({
+  templateType: String,
+  title: String,
+  slogan: String
 })
 
 const loadImage = (): Promise<HTMLImageElement> => {
@@ -20,41 +22,45 @@ const loadImage = (): Promise<HTMLImageElement> => {
   })
 }
 
-const drawCanvas = async (title: string, slogan: string, templateType: string = 'template_1') => {
+const drawCanvas = async () => {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement
-  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+  if (!canvas) return
 
+  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
   const image = await loadImage()
   if (!image) return
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   // Draw the image
   ctx.drawImage(image, 0, 0)
 
   // Draw the title
   ctx.font = '40px serif'
-  ctx.fillText(title, 10, 50)
+  ctx.fillText(title as string, 10, 50)
 
   // Draw the slogan
   ctx.font = '20px serif'
-  ctx.fillText(slogan, 10, 100)
+  ctx.fillText(slogan as string, 10, 100)
 
   // Draw the template name
   ctx.font = '20px serif'
-  ctx.fillText(templateType, 10, 200)
+  ctx.fillText(templateType as string, 10, 200)
 }
 
 defineExpose({
   drawCanvas
 })
 
+watch([() => title, () => slogan, () => templateType], drawCanvas);
+
 onMounted(() => {
-  drawCanvas("Title", "Slogan", templateType)
+  drawCanvas()
 })
 </script>
 
 <template>
-  <pre>templateType: {{ templateType }}</pre>
-  <canvas id="canvas" width="402" height="730" style="border:1px solid #000000;"></canvas>
+  <canvas ref="canvasRef" id="canvas" width="402" height="730" style="border:1px solid #000000;"></canvas>
 </template>
 
 <style scoped></style>
