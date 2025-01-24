@@ -48,10 +48,6 @@ const drawCanvas = async () => {
   ctx.fillText(templateType as string, 10, 200)
 }
 
-defineExpose({
-  drawCanvas
-})
-
 watch([() => title, () => slogan, () => templateType], drawCanvas);
 
 onMounted(() => {
