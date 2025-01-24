@@ -5,6 +5,9 @@ import Form from './components/Form.vue';
 import { getOpenAiResponse } from './utils/data';
 import createPrompt from './utils/createPrompt';
 
+const template = ref('template_1');
+const title = ref('Title');
+const slogan = ref('Slogan');
 
 const handleFrom = async () => {
   const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
@@ -16,37 +19,30 @@ const handleFrom = async () => {
   }, {} as Record<string, string>);
 
   const prompt = createPrompt(inputValues);
+  const openAiResponse = await getOpenAiResponse(prompt);
+  const responseObject = JSON.parse(openAiResponse);
 
-  const test = await getOpenAiResponse(prompt);
-
-  console.log(test);
-  return test;
+  title.value = responseObject.Titre;
+  slogan.value = responseObject.Slogan;
 }
 
-const selectedTemplate = () => {
-
-  const templateChoice = document.getElementById('template_choice') as HTMLSelectElement;
-  const choice = templateChoice.value;
-  console.log(choice);
-
-  return choice;
+const handleTemplateChange = () => {
+  const templateSelectElement = document.getElementById('template_choice') as HTMLSelectElement;
+  template.value = templateSelectElement.value;
 }
-
-const template = ref('template1')
-
 </script>
 
 <template>
   <div>
-    <h1>Titre</h1>
+    <h1>Générateur de post</h1>
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
-        <Form @formSubmit="handleFrom" @templateSubmit="selectedTemplate" />
+        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" />
       </div>
       <div class="block_right">
         <!-- appel résultat -->
-        <ResultCanvas :templateType="template" />
+        <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
       </div>
     </div>
   </div>
