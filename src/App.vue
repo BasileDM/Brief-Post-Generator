@@ -20,7 +20,6 @@ const handleFrom = async () => {
 
   const prompt = createPrompt(inputValues);
   const openAiResponse = await getOpenAiResponse(prompt);
-  console.log(openAiResponse);
   const responseObject = JSON.parse(openAiResponse);
 
   title.value = responseObject.Titre;

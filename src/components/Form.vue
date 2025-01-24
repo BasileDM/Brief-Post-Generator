@@ -10,7 +10,7 @@ const emit = defineEmits(['formSubmit', 'templateChange']);
 <template>
     <SelectTemplate @template="emit('templateChange')" />
     <InputText title_input="Occasion" />
-    <InputText title_input="Tonalité" />
+    <InputText title_input="Tone" />
 
     <ButtonSubmit @click="emit('formSubmit')" />
 </template>
