@@ -34,7 +34,7 @@ const handleTemplateChange = () => {
 
 <template>
   <div>
-    <h1>Social Post Generator</h1>
+    <h1>Générateur de post</h1>
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
