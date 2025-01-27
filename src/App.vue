@@ -1,30 +1,81 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+import ResultCanvas from './components/ResultCanvas.vue'
+import Form from './components/Form.vue';
+import { getOpenAiResponse } from './utils/data';
+import createPrompt from './utils/createPrompt';
+import download from './utils/download';
+
+const template = ref('template_1');
+const title = ref('Title');
+const slogan = ref('Slogan');
+
+const handleDownload = (e: Event) => {
+  e.preventDefault();
+  download();
+};
+
+const handleFrom = async () => {
+  const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
+  const inputValues = Array.from(arrayInput).reduce((acc, input) => {
+    if (input.name) {
+      acc[input.name] = input.value;
+    }
+    return acc;
+  }, {} as Record<string, string>);
+
+  const prompt = createPrompt(inputValues);
+  const openAiResponse = await getOpenAiResponse(prompt);
+  const responseObject = JSON.parse(openAiResponse);
+
+  title.value = responseObject.Titre;
+  slogan.value = responseObject.Slogan;
+}
+
+const handleTemplateChange = () => {
+  const templateSelectElement = document.getElementById('template_choice') as HTMLSelectElement;
+  template.value = templateSelectElement.value;
+}
 </script>
 
 <template>
   <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <h1>Générateur de post</h1>
+    <div class="main_content">
+      <div class="block_left">
+        <!-- appel formulaire -->
+        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" />
+      </div>
+      <div class="block_right">
+        <!-- appel résultat -->
+        <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
+        <button id="telecharger" @click="handleDownload">Télécharger l'image</button>
+      </div>
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.main_content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 10px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.block_right,
+.block_left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: 25px;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.block_right {
+  justify-content: flex-end;
+}
+
+.block_left {
+  justify-content: flex-start;
 }
 </style>
