@@ -45,10 +45,6 @@ const drawCanvas = async () => {
   // Draw the slogan
   ctx.font = '20px serif'
   ctx.fillText(slogan as string, sloganPosition.x, sloganPosition.y)
-
-  // Draw the template name
-  ctx.font = '20px serif'
-  ctx.fillText(templateType as string, 10, 200)
 }
 
 const getTemplateVariables = (templateType: string): TemplateVariables => {
