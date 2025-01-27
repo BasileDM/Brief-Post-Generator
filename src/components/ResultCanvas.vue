@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue'
+import type { TemplateVariables } from '../interfaces/TemplateVariables';
 
 const { templateType, title, slogan } = defineProps({
   templateType: String,
@@ -31,6 +32,8 @@ const drawCanvas = async () => {
   const image = await loadImage()
   if (!image) return
 
+  const { titlePosition, sloganPosition } = getTemplateVariables(templateType as string)
+
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   // Draw the image
@@ -38,15 +41,31 @@ const drawCanvas = async () => {
 
   // Draw the title
   ctx.font = '40px serif'
-  ctx.fillText(title as string, 10, 50)
+  ctx.fillText(title as string, titlePosition.x, titlePosition.y)
 
   // Draw the slogan
   ctx.font = '20px serif'
-  ctx.fillText(slogan as string, 10, 100)
+  ctx.fillText(slogan as string, sloganPosition.x, sloganPosition.y)
+}
 
-  // Draw the template name
-  ctx.font = '20px serif'
-  ctx.fillText(templateType as string, 10, 200)
+const getTemplateVariables = (templateType: string): TemplateVariables => {
+  switch (templateType) {
+    case 'template_1':
+      return {
+        titlePosition: { x: 10, y: 50 },
+        sloganPosition: { x: 10, y: 100 }
+      }
+    case 'template_2':
+      return {
+        titlePosition: { x: 10, y: 50 },
+        sloganPosition: { x: 10, y: 600 }
+      }
+    default:
+      return {
+        titlePosition: { x: 10, y: 50 },
+        sloganPosition: { x: 10, y: 100 }
+      }
+  }
 }
 
 watch([() => title, () => slogan, () => templateType], drawCanvas);
