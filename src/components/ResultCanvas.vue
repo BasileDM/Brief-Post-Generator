@@ -11,6 +11,7 @@ const loadImage = (): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const image = new Image()
     image.src = "https://picsum.photos/402/730"
+    image.crossOrigin="anonymous"
 
     image.onload = () => {
       resolve(image)
