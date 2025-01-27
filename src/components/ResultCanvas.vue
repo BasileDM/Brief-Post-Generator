@@ -44,7 +44,7 @@ const drawCanvas = async () => {
 
   // Draw the slogan
   ctx.font = '20px serif'
-  const sloganLines = getSloganLines(ctx, slogan as string, 400)
+  const sloganLines = getSloganLines(ctx, slogan as string, 380)
 
   for (let i = 0; i < sloganLines.length; i++) {
     ctx.fillText(sloganLines[i], sloganPosition.x, sloganPosition.y + i * 30)
