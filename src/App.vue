@@ -4,10 +4,16 @@ import ResultCanvas from './components/ResultCanvas.vue'
 import Form from './components/Form.vue';
 import { getOpenAiResponse } from './utils/data';
 import createPrompt from './utils/createPrompt';
+import download from './utils/download';
 
 const template = ref('template_1');
 const title = ref('Title');
 const slogan = ref('Slogan');
+
+const handleDownload = (e: Event) => {
+  e.preventDefault();
+  download();
+};
 
 const handleFrom = async () => {
   const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
@@ -43,6 +49,7 @@ const handleTemplateChange = () => {
       <div class="block_right">
         <!-- appel résultat -->
         <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
+        <button id="telecharger" @click="handleDownload">Télécharger l'image</button>
       </div>
     </div>
   </div>
