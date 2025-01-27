@@ -39,6 +39,14 @@ const drawCanvas = async () => {
   ctx.drawImage(image, 0, 0)
 
   // Draw the title
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'
+  ctx.fillRect(
+    0, 
+    titlePosition.y - 33, 
+    402, 
+    40
+  )
+  ctx.fillStyle = 'white'
   ctx.font = '40px serif'
   ctx.fillText(title as string, titlePosition.x, titlePosition.y)
 
@@ -47,6 +55,14 @@ const drawCanvas = async () => {
   const sloganLines = getSloganLines(ctx, slogan as string, 380)
 
   for (let i = 0; i < sloganLines.length; i++) {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'
+    ctx.fillRect(
+      0, 
+      sloganPosition.y - 21 + i * 30, 
+      402, 
+      30
+    )
+    ctx.fillStyle = 'white'
     ctx.fillText(sloganLines[i], sloganPosition.x, sloganPosition.y + i * 30)
   }
 }
