@@ -75,12 +75,12 @@ const handleTemplateChange = () => {
       </div>
       <div class="block_right">
         <!-- appel résultat -->
-        <button id="previous" @click="handlePrevious" :disabled="currentIndex === 0">Back</button>
+        <button class="pagination" id="previous" @click="handlePrevious" :disabled="currentIndex === 0">Back</button>
         <div>
           <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
           <button id="download" @click="handleDownload">Download</button>
         </div>
-        <button id="next" @click="handleNext" :disabled="currentIndex === results.length - 1">Next</button>
+        <button class="pagination" id="next" @click="handleNext" :disabled="currentIndex === results.length - 1">Next</button>
       </div>
     </div>
   </div>
@@ -94,7 +94,12 @@ const handleTemplateChange = () => {
   padding: 10px;
 }
 
-.block_right,
+.block_right{
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  margin: 25px;
+}
 .block_left {
   width: 50%;
   display: flex;
@@ -110,8 +115,12 @@ const handleTemplateChange = () => {
   justify-content: flex-start;
 }
 
-#next:disabled,
-#previous:disabled {
+.pagination {
+  width: 80px;
+  height: 40px;
+  margin: auto 10px;
+}
+.pagination:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
