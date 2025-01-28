@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <button id="submit">Envoyer</button>
+    <button id="submit">Submit</button>
 </template>
 
 <style scoped>

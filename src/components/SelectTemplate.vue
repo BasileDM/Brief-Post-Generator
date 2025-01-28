@@ -7,7 +7,7 @@ const emit = defineEmits(['template']);
 
     <label for="" class="title">Template</label>
     <select name="template_choice" id="template_choice" class="field" @change="emit('template')">
-        <option value="">Choisir un template</option>
+        <option value="">choose a template</option>
         <option value="template_1">Template 1</option>
         <option value="template_2">Template 2</option>
     </select>
