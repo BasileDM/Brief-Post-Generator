@@ -19,10 +19,10 @@ const handleFrom = async () => {
   const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
   const inputValues = Array.from(arrayInput).reduce((arr, input) => {
     if (input.name) {
-      arr[input.name] = input.value;
+      arr[input.name] = input.type === 'number' ? Number(input.value) : input.value;
     }
     return arr;
-  }, {} as Record<string, string>);
+  }, {} as Record<string, string | number>);
 
   const prompt = createPrompt(inputValues);
   const openAiResponse = await getOpenAiResponse(prompt);
@@ -49,7 +49,7 @@ const handleTemplateChange = () => {
       <div class="block_right">
         <!-- appel résultat -->
         <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
-        <button id="telecharger" @click="handleDownload">Download</button>
+        <button id="download" @click="handleDownload">Download</button>
       </div>
     </div>
   </div>
