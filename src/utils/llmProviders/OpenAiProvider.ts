@@ -13,7 +13,7 @@ export class OpenAiProvider extends AbstractLlmProvider {
     this.apiKey = apiKey;
   }
 
-  async generateResponse(prompt: string): Promise<string> {
+  async generateResponse(prompt: string, role = 'You are a helpful assistant'): Promise<string> {
     const response = await fetch(`${this.baseUrl}chat/completions`, {
       method: 'POST',
       headers: {
@@ -23,7 +23,7 @@ export class OpenAiProvider extends AbstractLlmProvider {
       body: JSON.stringify({
         model: 'gpt-4o',
         messages: [
-          { role: 'system', content: 'You are a helpful assistant.' },
+          { role: 'system', content: role },
           { role: 'user', content: prompt },
         ],
         temperature: this.temperature,
