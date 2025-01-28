@@ -1,22 +1,25 @@
-export default function createPrompt(inputValues: Record<string, string>): string {
-    let prompt: string = "Génère un titre et un slogan pour un post de réseaux sociaux basé sur les informations suivantes : ";
+export default function createPrompt(inputValues: Record<string, string | number>): string {
+    let prompt: string = "I am a community manager at a marketing agency, posting automotive images on social media to promote client companies. The goal is to convert the user into a customer. ";
 
     Object.entries(inputValues).forEach(([key, value]) => {
         switch (key) {
-            case "Occasion":
-                prompt += `**Occasion :** à l'occasion de/du ${value} \n`;
+            case "quantity":
+                prompt += `Write ${value} examples of titles and slogans for the launch of the latest car model.\n`;
                 break;
-            case "Tonalité": 
-                prompt += `**Tonalité :**  avec un ton ${value} \n`;
+            case "occasion":
+                prompt += `**Occasion: On the occasion of the ${value}.** \n`;
+                break;
+            case "tone": 
+                prompt += `**Tone :  With a ${value} tone.** \n`;
                 break;
             default:
                 break;
         }
     })
 
-    prompt += "Le titre doit être court, accrocheur, et refléter l'occasion de manière positive. Le slogan doit être un message attrayant qui met en avant les caractéristiques de la voiture tout en utilisant la tonalité spécifiée. Le ton du slogan doit être adapté à la tonalité indiquée, et il doit inciter à l'action.";
+    prompt += "Each title should be short, catchy, and positively reflect the occasion. The slogan should be an appealing message that highlights the car's features while using the specified tone.";
 
-    prompt += "Retourne la réponse en JSON sans formatage markDown avec l'attribut Slogan et l'attribut Titre";
+    prompt += "Return the response in JSON without Markdown formatting, with the attributes Slogan and Title for each of the requested examples.";
 
     return prompt;
 }
