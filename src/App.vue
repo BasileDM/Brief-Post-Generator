@@ -6,16 +6,18 @@ import createPrompt from './utils/createPrompt';
 import download from './utils/download';
 import type { Example } from './interfaces/ResultVariables';
 import { OpenAiProvider } from './utils/llmProviders/OpenAiProvider';
+import SelectDownloadType from './components/SelectDownloadType.vue';
 
 const template = ref('template_1');
 const title = ref('Title');
 const slogan = ref('Slogan');
 const results = ref<Example[]>([]);
 const currentIndex = ref(0);
+const downloadType = ref('downloadType');
 
 const handleDownload = (e: Event) => {
   e.preventDefault();
-  download();
+  download(downloadType.value);
 };
 
 const handleFrom = async () => {
@@ -64,6 +66,11 @@ const handleTemplateChange = () => {
   const templateSelectElement = document.getElementById('template_choice') as HTMLSelectElement;
   template.value = templateSelectElement.value;
 }
+
+const handleDownloadTypeChange = () => {
+  const downloadTypeSelectElement = document.getElementById('download_format') as HTMLSelectElement;
+  downloadType.value = downloadTypeSelectElement.value;
+}
 </script>
 
 <template>
@@ -77,8 +84,9 @@ const handleTemplateChange = () => {
       <div class="block_right">
         <!-- appel résultat -->
         <button class="pagination" id="previous" @click="handlePrevious" :disabled="currentIndex === 0">Back</button>
-        <div>
+        <div class="vertical">
           <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
+          <SelectDownloadType @downloadType="handleDownloadTypeChange" />
           <button id="download" @click="handleDownload">Download</button>
         </div>
         <button class="pagination" id="next" @click="handleNext"
@@ -97,14 +105,14 @@ const handleTemplateChange = () => {
 }
 
 .block_right {
-  width: 50%;
+  width: 52%;
   display: flex;
   flex-direction: row;
   margin: 25px;
 }
 
 .block_left {
-  width: 50%;
+  width: 48%;
   display: flex;
   flex-direction: column;
   margin: 25px;
@@ -116,6 +124,11 @@ const handleTemplateChange = () => {
 
 .block_left {
   justify-content: flex-start;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
 }
 
 .pagination {

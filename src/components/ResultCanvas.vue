@@ -11,7 +11,7 @@ const { templateType, title, slogan } = defineProps({
 const loadImage = (): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const image = new Image()
-    image.src = "https://loremflickr.com/402/730/car"
+    image.src = "https://picsum.photos/402/730"
     image.crossOrigin="anonymous"
 
     image.onload = () => {
