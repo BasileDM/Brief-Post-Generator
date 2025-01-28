@@ -90,7 +90,7 @@ const handleDownloadTypeChange = () => {
           <button id="download" @click="handleDownload">Download</button>
         </div>
         <button class="pagination" id="next" @click="handleNext"
-          :disabled="currentIndex === results.length - 1">Next</button>
+          :disabled="(currentIndex === results.length - 1) || (results.length === 0)">Next</button>
       </div>
     </div>
   </div>
