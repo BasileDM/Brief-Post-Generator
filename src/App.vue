@@ -17,11 +17,11 @@ const handleDownload = (e: Event) => {
 
 const handleFrom = async () => {
   const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
-  const inputValues = Array.from(arrayInput).reduce((acc, input) => {
+  const inputValues = Array.from(arrayInput).reduce((arr, input) => {
     if (input.name) {
-      acc[input.name] = input.value;
+      arr[input.name] = input.value;
     }
-    return acc;
+    return arr;
   }, {} as Record<string, string>);
 
   const prompt = createPrompt(inputValues);
@@ -40,7 +40,7 @@ const handleTemplateChange = () => {
 
 <template>
   <div>
-    <h1>Générateur de post</h1>
+    <h1>Post generator</h1>
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
@@ -49,7 +49,7 @@ const handleTemplateChange = () => {
       <div class="block_right">
         <!-- appel résultat -->
         <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
-        <button id="telecharger" @click="handleDownload">Télécharger l'image</button>
+        <button id="telecharger" @click="handleDownload">Download</button>
       </div>
     </div>
   </div>
