@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 import ResultCanvas from './components/ResultCanvas.vue'
 import Form from './components/Form.vue';
-import { getOpenAiResponse } from './utils/data';
 import createPrompt from './utils/createPrompt';
 import download from './utils/download';
 import type { Example } from './interfaces/ResultVariables';
+import { OpenAiProvider } from './utils/llmProviders/OpenAiProvider';
 
 const template = ref('template_1');
 const title = ref('Title');
@@ -28,11 +28,12 @@ const handleFrom = async () => {
   }, {} as Record<string, string | number>);
 
   const prompt = createPrompt(inputValues);
-  const openAiResponse = await getOpenAiResponse(prompt);
+  const llmProvider = new OpenAiProvider();
+  const openAiResponse = await llmProvider.generateResponse(prompt);
   const responseObject = JSON.parse(openAiResponse) as { examples: Example[] };
 
   results.value = responseObject.examples;
-  if(results.value.length > 0) {
+  if (results.value.length > 0) {
     currentIndex.value = 0;
     updateDisplayResult();
   }
@@ -80,7 +81,8 @@ const handleTemplateChange = () => {
           <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
           <button id="download" @click="handleDownload">Download</button>
         </div>
-        <button class="pagination" id="next" @click="handleNext" :disabled="currentIndex === results.length - 1">Next</button>
+        <button class="pagination" id="next" @click="handleNext"
+          :disabled="currentIndex === results.length - 1">Next</button>
       </div>
     </div>
   </div>
@@ -94,12 +96,13 @@ const handleTemplateChange = () => {
   padding: 10px;
 }
 
-.block_right{
+.block_right {
   width: 50%;
   display: flex;
   flex-direction: row;
   margin: 25px;
 }
+
 .block_left {
   width: 50%;
   display: flex;
@@ -120,6 +123,7 @@ const handleTemplateChange = () => {
   height: 40px;
   margin: auto 10px;
 }
+
 .pagination:disabled {
   opacity: 0.5;
   cursor: not-allowed;
