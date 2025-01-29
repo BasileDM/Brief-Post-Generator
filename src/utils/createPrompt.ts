@@ -4,13 +4,13 @@ export default function createPrompt(inputValues: Record<string, string | number
 
   Object.entries(inputValues).forEach(([key, value]) => {
     switch (key) {
-      case 'quantity':
+      case 'Quantity':
         prompt += `Write ${value} examples of titles and slogans for the launch of the latest car model.\n`;
         break;
-      case 'occasion':
+      case 'Occasion':
         prompt += `**Occasion: On the occasion of the ${value}.** \n`;
         break;
-      case 'tone':
+      case 'Tone':
         prompt += `**Tone :  With a ${value} tone.** \n`;
         break;
       default:
