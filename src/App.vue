@@ -18,6 +18,7 @@ const downloadType = ref('downloadType');
 const canvasRef = ref();
 const loading = ref(false);
 
+
 const handleDownload = (e: Event) => {
   e.preventDefault();
   download(downloadType.value);
