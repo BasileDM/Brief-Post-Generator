@@ -7,6 +7,7 @@ import download from './utils/download';
 import type { Example } from './interfaces/ResultVariables';
 import { OpenAiProvider } from './utils/llmProviders/OpenAiProvider';
 import SelectDownloadType from './components/SelectDownloadType.vue';
+import Spinner from './components/Spinner.vue';
 
 const template = ref('template_1');
 const title = ref('Title');
@@ -14,6 +15,7 @@ const slogan = ref('Slogan');
 const results = ref<Example[]>([]);
 const currentIndex = ref(0);
 const downloadType = ref('downloadType');
+const loading = ref(false);
 
 const handleDownload = (e: Event) => {
   e.preventDefault();
@@ -21,23 +23,32 @@ const handleDownload = (e: Event) => {
 };
 
 const handleFrom = async () => {
-  const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
-  const inputValues = Array.from(arrayInput).reduce((arr, input) => {
-    if (input.name) {
-      arr[input.name] = input.type === 'number' ? Number(input.value) : input.value;
+  loading.value = true;
+  try {
+    const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
+    const inputValues = Array.from(arrayInput).reduce((arr, input) => {
+      if (input.name) {
+        arr[input.name] = input.type === 'number' ? Number(input.value) : input.value;
+      }
+      return arr;
+    }, {} as Record<string, string | number>);
+  
+    const prompt = createPrompt(inputValues);
+    const llmProvider = new OpenAiProvider();
+    const openAiResponse = await llmProvider.generateResponse(prompt);
+    const responseObject = JSON.parse(openAiResponse) as { examples: Example[] };
+  
+    results.value = responseObject.examples;
+    if (results.value.length > 0) {
+      currentIndex.value = 0;
+      updateDisplayResult();
     }
-    return arr;
-  }, {} as Record<string, string | number>);
-
-  const prompt = createPrompt(inputValues);
-  const llmProvider = new OpenAiProvider();
-  const openAiResponse = await llmProvider.generateResponse(prompt);
-  const responseObject = JSON.parse(openAiResponse) as { examples: Example[] };
-
-  results.value = responseObject.examples;
-  if (results.value.length > 0) {
-    currentIndex.value = 0;
-    updateDisplayResult();
+  }
+  catch {
+    console.error('Error while generating results:', Error);
+  }
+  finally {
+    loading.value = false;
   }
 }
 
@@ -84,7 +95,10 @@ const handleDownloadTypeChange = () => {
       <div class="block_right">
         <!-- appel résultat -->
         <button class="pagination" id="previous" @click="handlePrevious" :disabled="currentIndex === 0">Back</button>
-        <div class="vertical">
+        <div v-if="loading">
+          <Spinner />
+        </div>
+        <div class="vertical" v-else>
           <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
           <SelectDownloadType @downloadType="handleDownloadTypeChange" />
           <button id="download" @click="handleDownload">Download</button>
