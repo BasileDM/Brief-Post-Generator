@@ -132,29 +132,23 @@ const handleReloadImage = async () => {
 .main_content {
   display: flex;
   flex-direction: row;
-  width: 100%;
   padding: 10px;
+  width: 80vw;
 }
 
 .block_right {
-  width: 52%;
   display: flex;
   flex-direction: row;
   margin: 25px;
-}
-
-.block_left {
-  width: 48%;
-  display: flex;
-  flex-direction: column;
-  margin: 25px;
-}
-
-.block_right {
+  flex: 1;
   justify-content: flex-end;
 }
 
 .block_left {
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  flex: 2;
   justify-content: flex-start;
 }
 
