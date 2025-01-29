@@ -43,7 +43,8 @@ const drawCanvas = async () => {
   ctx.drawImage(image, 0, 0);
 
   // Draw the title
-  const titleLines = getLines(ctx, title as string, 180);
+  ctx.font = '40px serif';
+  const titleLines = getLines(ctx, title as string, 380);
 
   ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
   ctx.fillRect(
@@ -54,7 +55,6 @@ const drawCanvas = async () => {
   );
   for (let i = 0; i < titleLines.length; i++) {
     ctx.fillStyle = 'white';
-    ctx.font = '40px serif';
     ctx.fillText(titleLines[i], titlePosition.x, titlePosition.y + i * 40);
   }
 

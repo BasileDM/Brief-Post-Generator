@@ -101,11 +101,14 @@ const handleReloadImage = async () => {
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
-        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage" />
+        <h3>Personalization</h3>
         <div v-if="resultAPI" class="vertical gap10">
-          <input type="text" v-model="title">
-          <textarea v-model="slogan"></textarea>
+          <label for="titleInput">Live title edit</label>
+          <input type="text" id="titleInput" v-model="title">
+          <label for="sloganInput">Live slogan edit</label>
+          <textarea v-model="slogan" id="sloganInput"></textarea>
         </div>
+        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage" />
       </div>
       <div class="block_right">
         <!-- appel résultat -->
@@ -129,29 +132,23 @@ const handleReloadImage = async () => {
 .main_content {
   display: flex;
   flex-direction: row;
-  width: 100%;
   padding: 10px;
+  width: 80vw;
 }
 
 .block_right {
-  width: 52%;
   display: flex;
   flex-direction: row;
   margin: 25px;
-}
-
-.block_left {
-  width: 48%;
-  display: flex;
-  flex-direction: column;
-  margin: 25px;
-}
-
-.block_right {
+  flex: 1;
   justify-content: flex-end;
 }
 
 .block_left {
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  flex: 2;
   justify-content: flex-start;
 }
 
@@ -159,6 +156,7 @@ const handleReloadImage = async () => {
   display: flex;
   flex-direction: column;
 }
+
 .gap10 {
   gap: 10px;
 }
@@ -172,5 +170,9 @@ const handleReloadImage = async () => {
 .pagination:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+label {
+  align-self: self-start;
 }
 </style>
