@@ -97,7 +97,10 @@ const handleReloadImage = async () => {
 
 <template>
   <div>
-    <h1>Post generator</h1>
+    <div class="header">
+      <img src="./../public/car.png" alt="Car logo for this tool" class="logo">
+      <h1>Post generator </h1>
+    </div>
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
@@ -129,6 +132,16 @@ const handleReloadImage = async () => {
 </template>
 
 <style scoped>
+.logo {
+  width: 100px;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
 .main_content {
   display: flex;
   flex-direction: row;
@@ -148,7 +161,7 @@ const handleReloadImage = async () => {
   margin: 0px;
   display: flex;
   flex-direction: column;
-  flex: 2;
+  flex: 1;
   justify-content: flex-start;
 }
 
