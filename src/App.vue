@@ -101,11 +101,14 @@ const handleReloadImage = async () => {
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
-        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage" />
+        <h3>Personalization</h3>
         <div v-if="resultAPI" class="vertical gap10">
-          <input type="text" v-model="title">
-          <textarea v-model="slogan"></textarea>
+          <label for="titleInput">Live title edit</label>
+          <input type="text" id="titleInput" v-model="title">
+          <label for="sloganInput">Live slogan edit</label>
+          <textarea v-model="slogan" id="sloganInput"></textarea>
         </div>
+        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage" />
       </div>
       <div class="block_right">
         <!-- appel résultat -->
@@ -159,6 +162,7 @@ const handleReloadImage = async () => {
   display: flex;
   flex-direction: column;
 }
+
 .gap10 {
   gap: 10px;
 }
@@ -172,5 +176,9 @@ const handleReloadImage = async () => {
 .pagination:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+label {
+  align-self: self-start;
 }
 </style>

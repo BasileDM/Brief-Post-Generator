@@ -8,7 +8,6 @@ const emit = defineEmits(['formSubmit', 'templateChange', 'reloadImage']);
 </script>
 
 <template>
-    <h3>Personalization</h3>
     <SelectTemplate @template="emit('templateChange')" />
     <ButtonSubmit @click="emit('reloadImage')" text="Reload image" />
     <hr width="100%">
