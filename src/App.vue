@@ -15,6 +15,7 @@ const slogan = ref('Slogan');
 const results = ref<Example[]>([]);
 const currentIndex = ref(0);
 const downloadType = ref('downloadType');
+const canvasRef = ref();
 const loading = ref(false);
 
 const handleDownload = (e: Event) => {
@@ -82,6 +83,12 @@ const handleDownloadTypeChange = () => {
   const downloadTypeSelectElement = document.getElementById('download_format') as HTMLSelectElement;
   downloadType.value = downloadTypeSelectElement.value;
 }
+
+const handleReloadImage = async () => {
+  if (!canvasRef.value) return;
+  await canvasRef.value.loadImage();
+  canvasRef.value.drawCanvas();
+}
 </script>
 
 <template>
@@ -90,7 +97,7 @@ const handleDownloadTypeChange = () => {
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
-        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" />
+        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage"/>
       </div>
       <div class="block_right">
         <!-- appel résultat -->
@@ -99,7 +106,7 @@ const handleDownloadTypeChange = () => {
           <Spinner />
         </div>
         <div class="vertical" v-else>
-          <ResultCanvas :templateType="template" :title="title" :slogan="slogan" />
+          <ResultCanvas :templateType="template" :title="title" :slogan="slogan" ref="canvasRef"/>
           <SelectDownloadType @downloadType="handleDownloadTypeChange" />
           <button id="download" @click="handleDownload">Download</button>
         </div>
