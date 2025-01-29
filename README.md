@@ -1,5 +1,37 @@
-# Vue 3 + TypeScript + Vite
+# Post generator
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## About
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+This app allows for generating instagram sized images with an AI generated title and slogan. You can edit both live afterwards and select from 2 different templates.
+
+## Setting up the project
+
+Clone the repository :
+
+```
+git clone git@github.com:BasileDM/Brief-Post-Generator.git
+```
+
+Create your .env file from the example :
+
+```
+cp env.example .env
+```
+
+And replace the OpenAI key with yours :
+
+```
+VITE_OPENAI_API_KEY=your_openai_key
+```
+
+Install dependencies :
+
+```
+npm install
+```
+
+Run the project :
+
+```
+npm run dev
+```
