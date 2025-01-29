@@ -13,10 +13,11 @@ const imageRef = ref<HTMLImageElement | null>(null)
 const loadImage = (): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const image = new Image();
-    image.src = "https://picsum.photos/402/730";
+    image.src = "https://picsum.photos/402/730?random=" + Math.random();
     image.crossOrigin = "anonymous";
 
     image.onload = () => {
+      imageRef.value = image;
       resolve(image);
     };
 
@@ -114,7 +115,9 @@ function getLines(ctx: CanvasRenderingContext2D, slogan: string, maxWidth = 400)
   return lines;
 }
 
-watch([() => title, () => slogan, () => templateType], drawCanvas);
+defineExpose({ loadImage, drawCanvas });
+
+watch([() => title, () => slogan, () => templateType, () => imageRef], drawCanvas);
 
 onMounted(async () => {
   imageRef.value = await loadImage();
