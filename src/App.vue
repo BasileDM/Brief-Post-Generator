@@ -17,6 +17,7 @@ const currentIndex = ref(0);
 const downloadType = ref('downloadType');
 const canvasRef = ref();
 const loading = ref(false);
+const resultAPI = ref(false);
 
 
 const handleDownload = (e: Event) => {
@@ -26,6 +27,7 @@ const handleDownload = (e: Event) => {
 
 const handleFrom = async () => {
   loading.value = true;
+  resultAPI.value = false;
   try {
     const arrayInput = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
     const inputValues = Array.from(arrayInput).reduce((arr, input) => {
@@ -34,12 +36,12 @@ const handleFrom = async () => {
       }
       return arr;
     }, {} as Record<string, string | number>);
-  
+
     const prompt = createPrompt(inputValues);
     const llmProvider = new OpenAiProvider();
     const openAiResponse = await llmProvider.generateResponse(prompt);
     const responseObject = JSON.parse(openAiResponse) as { examples: Example[] };
-  
+
     results.value = responseObject.examples;
     if (results.value.length > 0) {
       currentIndex.value = 0;
@@ -50,6 +52,7 @@ const handleFrom = async () => {
     console.error('Error while generating results:', Error);
   }
   finally {
+    resultAPI.value = true;
     loading.value = false;
   }
 }
@@ -98,7 +101,11 @@ const handleReloadImage = async () => {
     <div class="main_content">
       <div class="block_left">
         <!-- appel formulaire -->
-        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage"/>
+        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage" />
+        <div v-if="resultAPI" class="vertical gap10">
+          <input type="text" v-model="title">
+          <textarea v-model="slogan"></textarea>
+        </div>
       </div>
       <div class="block_right">
         <!-- appel résultat -->
@@ -107,7 +114,7 @@ const handleReloadImage = async () => {
           <Spinner />
         </div>
         <div class="vertical" v-else>
-          <ResultCanvas :templateType="template" :title="title" :slogan="slogan" ref="canvasRef"/>
+          <ResultCanvas :templateType="template" :title="title" :slogan="slogan" ref="canvasRef" />
           <SelectDownloadType @downloadType="handleDownloadTypeChange" />
           <button id="download" @click="handleDownload">Download</button>
         </div>
@@ -152,6 +159,9 @@ const handleReloadImage = async () => {
   display: flex;
   flex-direction: column;
 }
+.gap10 {
+  gap: 10px;
+}
 
 .pagination {
   width: 80px;
@@ -163,5 +173,4 @@ const handleReloadImage = async () => {
   opacity: 0.5;
   cursor: not-allowed;
 }
-
 </style>
