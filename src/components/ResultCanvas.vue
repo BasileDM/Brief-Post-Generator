@@ -2,10 +2,14 @@
 import { onMounted, watch, ref } from 'vue'
 import type { TemplateVariables } from '../interfaces/TemplateVariables';
 
-const { templateType, title, slogan } = defineProps({
+const { templateType, title, titleColor, titleFont, slogan, sloganColor, sloganFont } = defineProps({
   templateType: String,
   title: String,
-  slogan: String
+  titleColor: String,
+  titleFont: String,
+  slogan: String,
+  sloganColor: String,
+  sloganFont: String
 })
 
 const imageRef = ref<HTMLImageElement | null>(null)
@@ -43,7 +47,7 @@ const drawCanvas = async () => {
   ctx.drawImage(image, 0, 0);
 
   // Draw the title
-  ctx.font = '40px serif';
+  ctx.font = `40px ${titleFont || 'serif'}`;
   const titleLines = getLines(ctx, title as string, 380);
 
   ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
@@ -54,12 +58,12 @@ const drawCanvas = async () => {
     40 * titleLines.length
   );
   for (let i = 0; i < titleLines.length; i++) {
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = titleColor || 'white';
     ctx.fillText(titleLines[i], titlePosition.x, titlePosition.y + i * 40);
   }
 
   // Draw the slogan
-  ctx.font = '20px serif';
+  ctx.font = `20px ${sloganFont || 'serif'}`;
   const sloganLines = getLines(ctx, slogan as string, 380);
 
   const sloganStartPosition = templateType == 'template_2' ? sloganPosition.y : sloganPosition.y + titleLines.length * 40;
@@ -71,7 +75,7 @@ const drawCanvas = async () => {
       402,
       30
     )
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = sloganColor || 'white';
     ctx.fillText(sloganLines[i], sloganPosition.x, sloganStartPosition + i * 30);
   };
 }
@@ -117,7 +121,7 @@ function getLines(ctx: CanvasRenderingContext2D, slogan: string, maxWidth = 400)
 
 defineExpose({ loadImage, drawCanvas });
 
-watch([() => title, () => slogan, () => templateType, () => imageRef], drawCanvas);
+watch([() => title, () => titleColor, () => titleFont, () => slogan, () => sloganColor, () => sloganFont, () => templateType, () => imageRef], drawCanvas);
 
 onMounted(async () => {
   imageRef.value = await loadImage();
