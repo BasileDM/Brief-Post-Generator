@@ -11,13 +11,18 @@ import Spinner from './components/Spinner.vue';
 
 const template = ref('template_1');
 const title = ref('Title');
+const titleColor = ref('#FFFFFF');
+const titleFont = ref('serif');
 const slogan = ref('Slogan');
+const sloganColor = ref('#FFFFFF');
+const sloganFont = ref('serif');
 const results = ref<Example[]>([]);
 const currentIndex = ref(0);
 const downloadType = ref('downloadType');
 const canvasRef = ref();
 const loading = ref(false);
 const resultAPI = ref(false);
+const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
 const temperature = ref(0.6);
 
 
@@ -109,8 +114,20 @@ const handleReloadImage = async () => {
         <div v-if="resultAPI" class="vertical gap10">
           <label for="titleInput">Live title edit</label>
           <input type="text" id="titleInput" v-model="title">
+          <label for="titleColorInput">Live title's color edit</label>
+          <input type="color" id="titleColorInput" v-model="titleColor">
+          <label for="titleFontSelect">Choose font</label>
+          <select id="titleFontSelect" v-model="titleFont">
+            <option v-for="font in fonts" :key="font" :value="font">{{ font }}</option>
+          </select>
           <label for="sloganInput">Live slogan edit</label>
           <textarea v-model="slogan" id="sloganInput"></textarea>
+          <label for="sloganColorInput">Live slogan's color edit</label>
+          <input type="color" id="sloganColorInput" v-model="sloganColor">
+          <label for="sloganFontSelect">Choose font</label>
+          <select id="sloganFontSelect" v-model="sloganFont">
+            <option v-for="font in fonts" :key="font" :value="font">{{ font }}</option>
+          </select>
         </div>
         <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage"
           v-model="temperature" />
@@ -122,7 +139,7 @@ const handleReloadImage = async () => {
           <Spinner />
         </div>
         <div class="vertical" v-else>
-          <ResultCanvas :templateType="template" :title="title" :slogan="slogan" ref="canvasRef" />
+          <ResultCanvas :templateType="template" :title="title" :titleColor="titleColor" :titleFont="titleFont" :slogan="slogan" :sloganColor="sloganColor" :sloganFont="sloganFont" ref="canvasRef" />
           <SelectDownloadType @downloadType="handleDownloadTypeChange" />
           <button id="download" @click="handleDownload">Download</button>
         </div>
