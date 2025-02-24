@@ -65,20 +65,23 @@ const drawCanvas = async () => {
     ctx.fillText(titleLines[i], titlePosition.x, titlePosition.y + i * titleLineHeight);
   }
 
-  // Draw the slogan
+  // Dessiner le slogan
   ctx.font = `${sloganSize || 20}px ${sloganFont || 'serif'}`;
   const sloganLines = getLines(ctx, slogan as string, 380);
-  if(!sloganSize) {
+  if (!sloganSize) {
     throw new Error();
   }
   const sloganLineHeight = sloganSize * 1.2;
 
-  const sloganStartPosition = templateType == 'template_2' ? sloganPosition.y : sloganPosition.y + titleLines.length * titleLineHeight;
-  
+  const sloganStartPosition = templateType == 'template_2' 
+    ? sloganPosition.y 
+    : sloganPosition.y + titleLines.length * titleLineHeight;
+
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+  ctx.fillRect(0, sloganStartPosition - sloganSize * 0.8, 402, sloganLineHeight * sloganLines.length);
+
+  ctx.fillStyle = sloganColor || 'white';
   for (let i = 0; i < sloganLines.length; i++) {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-    ctx.fillRect(0, sloganStartPosition - sloganSize * 0.8 + i * sloganLineHeight, 402, sloganLineHeight);
-    ctx.fillStyle = sloganColor || 'white';
     ctx.fillText(sloganLines[i], sloganPosition.x, sloganStartPosition + i * sloganLineHeight);
   }
 }
