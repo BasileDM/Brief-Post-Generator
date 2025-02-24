@@ -23,6 +23,7 @@ const canvasRef = ref();
 const loading = ref(false);
 const resultAPI = ref(false);
 const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
+const temperature = ref(0.6);
 
 
 const handleDownload = (e: Event) => {
@@ -43,7 +44,7 @@ const handleFrom = async () => {
     }, {} as Record<string, string | number>);
 
     const prompt = createPrompt(inputValues);
-    const llmProvider = new OpenAiProvider();
+    const llmProvider = new OpenAiProvider({ temperature: temperature.value });
     const openAiResponse = await llmProvider.generateResponse(prompt);
     const responseObject = JSON.parse(openAiResponse) as { examples: Example[] };
 
@@ -128,7 +129,8 @@ const handleReloadImage = async () => {
             <option v-for="font in fonts" :key="font" :value="font">{{ font }}</option>
           </select>
         </div>
-        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage" />
+        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage"
+          v-model="temperature" />
       </div>
       <div class="block_right">
         <!-- appel résultat -->
@@ -152,6 +154,7 @@ const handleReloadImage = async () => {
 .logo {
   width: 100px;
 }
+
 .header {
   display: flex;
   flex-direction: row;
@@ -159,6 +162,7 @@ const handleReloadImage = async () => {
   justify-content: center;
   align-items: center;
 }
+
 .main_content {
   display: flex;
   flex-direction: row;
