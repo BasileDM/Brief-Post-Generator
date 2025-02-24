@@ -21,7 +21,7 @@ export class OpenAiProvider extends AbstractLlmProvider {
         Authorization: `Bearer ${this.apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o',
+        model: 'gpt-4o-mini',
         messages: [
           { role: 'system', content: role },
           { role: 'user', content: prompt },
