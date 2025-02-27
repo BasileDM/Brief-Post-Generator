@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, watch, ref } from 'vue'
 import type { TemplateVariables } from '../interfaces/TemplateVariables';
+import { getLines } from '../utils/getLines';
 
 const { templateType, title, titleColor, titleFont, titleSize, slogan, sloganColor, sloganFont, sloganSize } = defineProps({
   templateType: String,
@@ -104,25 +105,6 @@ const getTemplateVariables = (templateType: string): TemplateVariables => {
         sloganPosition: { x: 10, y: 100 }
       }
   }
-}
-
-function getLines(ctx: CanvasRenderingContext2D, slogan: string, maxWidth = 400) {
-  var words = slogan.split(" ");
-  var lines = [];
-  var currentLine = words[0];
-
-  for (var i = 1; i < words.length; i++) {
-    var word = words[i];
-    var width = ctx.measureText(currentLine + " " + word).width;
-    if (width < maxWidth) {
-      currentLine += " " + word;
-    } else {
-      lines.push(currentLine);
-      currentLine = word;
-    }
-  }
-  lines.push(currentLine);
-  return lines;
 }
 
 defineExpose({ loadImage, drawCanvas });
