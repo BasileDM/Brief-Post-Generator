@@ -2,7 +2,6 @@
 import InputText from './InputText.vue';
 import SelectTemplate from './SelectTemplate.vue';
 import ButtonSubmit from './ButtonSubmit.vue';
-import { defineEmits } from 'vue';
 
 const emit = defineEmits(['formSubmit', 'templateChange', 'reloadImage']);
 const temperature = defineModel();
