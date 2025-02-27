@@ -105,7 +105,7 @@ const handleReloadImage = async () => {
 <template>
   <div>
     <div class="header">
-      <img src="./../public/car.png" alt="Car logo for this tool" class="logo">
+      <img src="/car.png" alt="Car logo for this tool" class="logo">
       <h1>Post generator </h1>
     </div>
     <div class="main_content">
