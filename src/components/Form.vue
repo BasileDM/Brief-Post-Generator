@@ -18,7 +18,7 @@ const temperature = defineModel();
     <InputText type_input="number" title_input="Quantity" />
     <div class="slider">
         <label for="temperature">Temperature: {{ temperature }}</label>
-        <input type="range" id="temperature" min="0" max="1" step="0.1" v-model="temperature"/>
+        <input type="range" id="temperature" min="0" max="1" step="0.1" v-model="temperature" />
     </div>
 
     <ButtonSubmit @click="emit('formSubmit')" text="Submit" id="submit" />

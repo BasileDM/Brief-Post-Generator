@@ -27,8 +27,6 @@ const temperature = ref(0.6);
 const titleSize = ref(40);
 const sloganSize = ref(20);
 
-
-
 const handleDownload = (e: Event) => {
   e.preventDefault();
   download(downloadType.value);
@@ -135,7 +133,7 @@ const handleReloadImage = async () => {
             <option v-for="font in fonts" :key="font" :value="font">{{ font }}</option>
           </select>
           <label for="sloganSizeInput">Slogan size</label>
-          <input type="number" id="sloganSizeInput" v-model="sloganSize" min="10" max="50" step="1"> 
+          <input type="number" id="sloganSizeInput" v-model="sloganSize" min="10" max="50" step="1">
         </div>
         <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage"
           v-model="temperature" />
@@ -147,7 +145,9 @@ const handleReloadImage = async () => {
           <Spinner />
         </div>
         <div class="vertical" v-else>
-          <ResultCanvas :templateType="template" :title="title" :titleColor="titleColor" :titleFont="titleFont" :titleSize="titleSize" :slogan="slogan" :sloganColor="sloganColor" :sloganFont="sloganFont" :sloganSize="sloganSize" ref="canvasRef" />
+          <ResultCanvas :templateType="template" :title="title" :titleColor="titleColor" :titleFont="titleFont"
+            :titleSize="titleSize" :slogan="slogan" :sloganColor="sloganColor" :sloganFont="sloganFont"
+            :sloganSize="sloganSize" ref="canvasRef" />
           <SelectDownloadType @downloadType="handleDownloadTypeChange" />
           <button id="download" @click="handleDownload">Download</button>
         </div>

@@ -10,8 +10,8 @@ const { templateType, title, titleColor, titleFont, titleSize, slogan, sloganCol
   slogan: String,
   sloganColor: String,
   sloganFont: String,
-  titleSize: Number, 
-  sloganSize: Number 
+  titleSize: Number,
+  sloganSize: Number
 })
 
 const imageRef = ref<HTMLImageElement | null>(null)
@@ -50,9 +50,9 @@ const drawCanvas = async () => {
 
   // Draw the title
   ctx.font = `${titleSize || 40}px ${titleFont || 'serif'}`;
-  
+
   const titleLines = getLines(ctx, title as string, 380);
-  if(!titleSize) {
+  if (!titleSize) {
     throw new Error();
   }
   const titleLineHeight = titleSize * 1.2;
@@ -73,8 +73,8 @@ const drawCanvas = async () => {
   }
   const sloganLineHeight = sloganSize * 1.2;
 
-  const sloganStartPosition = templateType == 'template_2' 
-    ? sloganPosition.y 
+  const sloganStartPosition = templateType == 'template_2'
+    ? sloganPosition.y
     : sloganPosition.y + titleLines.length * titleLineHeight;
 
   ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
