@@ -11,14 +11,21 @@ import Spinner from './components/Spinner.vue';
 
 const template = ref('template_1');
 const title = ref('Title');
+const titleColor = ref('#FFFFFF');
+const titleFont = ref('serif');
 const slogan = ref('Slogan');
+const sloganColor = ref('#FFFFFF');
+const sloganFont = ref('serif');
 const results = ref<Example[]>([]);
 const currentIndex = ref(0);
 const downloadType = ref('downloadType');
 const canvasRef = ref();
 const loading = ref(false);
 const resultAPI = ref(false);
-
+const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
+const temperature = ref(0.6);
+const titleSize = ref(40);
+const sloganSize = ref(20);
 
 const handleDownload = (e: Event) => {
   e.preventDefault();
@@ -38,7 +45,7 @@ const handleFrom = async () => {
     }, {} as Record<string, string | number>);
 
     const prompt = createPrompt(inputValues);
-    const llmProvider = new OpenAiProvider();
+    const llmProvider = new OpenAiProvider({ temperature: temperature.value });
     const openAiResponse = await llmProvider.generateResponse(prompt);
     const responseObject = JSON.parse(openAiResponse) as { examples: Example[] };
 
@@ -98,7 +105,7 @@ const handleReloadImage = async () => {
 <template>
   <div>
     <div class="header">
-      <img src="./../public/car.png" alt="Car logo for this tool" class="logo">
+      <img src="/car.png" alt="Car logo for this tool" class="logo">
       <h1>Post generator </h1>
     </div>
     <div class="main_content">
@@ -108,10 +115,28 @@ const handleReloadImage = async () => {
         <div v-if="resultAPI" class="vertical gap10">
           <label for="titleInput">Live title edit</label>
           <input type="text" id="titleInput" v-model="title">
+          <label for="titleColorInput">Live title's color edit</label>
+          <input type="color" id="titleColorInput" v-model="titleColor">
+          <label for="titleFontSelect">Choose font</label>
+          <select id="titleFontSelect" v-model="titleFont">
+            <option v-for="font in fonts" :key="font" :value="font">{{ font }}</option>
+          </select>
+          <label for="titleSizeInput">Title size</label>
+          <input type="number" id="titleSizeInput" v-model="titleSize" min="10" max="100" step="1">
+
           <label for="sloganInput">Live slogan edit</label>
           <textarea v-model="slogan" id="sloganInput"></textarea>
+          <label for="sloganColorInput">Live slogan's color edit</label>
+          <input type="color" id="sloganColorInput" v-model="sloganColor">
+          <label for="sloganFontSelect">Choose font</label>
+          <select id="sloganFontSelect" v-model="sloganFont">
+            <option v-for="font in fonts" :key="font" :value="font">{{ font }}</option>
+          </select>
+          <label for="sloganSizeInput">Slogan size</label>
+          <input type="number" id="sloganSizeInput" v-model="sloganSize" min="10" max="50" step="1">
         </div>
-        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage" />
+        <Form @formSubmit="handleFrom" @templateChange="handleTemplateChange" @reloadImage="handleReloadImage"
+          v-model="temperature" />
       </div>
       <div class="block_right">
         <!-- appel résultat -->
@@ -120,7 +145,9 @@ const handleReloadImage = async () => {
           <Spinner />
         </div>
         <div class="vertical" v-else>
-          <ResultCanvas :templateType="template" :title="title" :slogan="slogan" ref="canvasRef" />
+          <ResultCanvas :templateType="template" :title="title" :titleColor="titleColor" :titleFont="titleFont"
+            :titleSize="titleSize" :slogan="slogan" :sloganColor="sloganColor" :sloganFont="sloganFont"
+            :sloganSize="sloganSize" ref="canvasRef" />
           <SelectDownloadType @downloadType="handleDownloadTypeChange" />
           <button id="download" @click="handleDownload">Download</button>
         </div>
@@ -135,6 +162,7 @@ const handleReloadImage = async () => {
 .logo {
   width: 100px;
 }
+
 .header {
   display: flex;
   flex-direction: row;
@@ -142,6 +170,7 @@ const handleReloadImage = async () => {
   justify-content: center;
   align-items: center;
 }
+
 .main_content {
   display: flex;
   flex-direction: row;
